@@ -301,8 +301,8 @@ def main():
     dataset = 'cifar'
 
     # model = 'fc'
-    # model = 'conv'
-    model = 'resnet'
+    model = 'conv'
+    # model = 'resnet'
     # model = 'vgg'
 
     if model == 'fc':
@@ -439,22 +439,6 @@ def main():
     orig_importance_optimizer_args = [1e-3, adam_betas]
 
     # ===============
-    # dir_name = f'n_runs_{dataset}_{model}_testrun'
-    # initialization = 'uniform'
-    # beta = 0.0
-    # normalization = False
-    # cosines = False
-    # optimizer_args = tuple(orig_optimizer_args)
-    # importance_optimizer_args = tuple(orig_importance_optimizer_args)
-    # model_args = tuple(orig_model_args + [beta, normalization])
-    # key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
-    #       f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
-    # load_or_run_n(3, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
-    #               init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
-    #               cosines)
-    # ===============
-
-    # ===============
     # cosines
     # dir_name = f'n_runs_{dataset}_{model}_cosine_similarities_final'
     # cosines = True
@@ -492,35 +476,32 @@ def main():
     # ===============
     # baselines
     # dir_name = f'n_runs_{dataset}_{model}_baselines'
-    # dir_name = f'n_runs_{dataset}_{model}_baselines_5_and_betas'
-    # initialization = 'uniform'
-    # normalization = False
-    # cosines = False
-    # for l in range(20, 2, -1):
-    #     optimizer_args = tuple(orig_optimizer_args)
-    #     importance_optimizer_args = tuple(orig_importance_optimizer_args)
-    #     model_args = orig_model_args + [0.0, False, True, True]
-    #     model_args[2] = l
-    #     model_args = tuple(model_args)
-    #     key = f'{Model.__name__}_args_{model_args}_baseline_' \
-    #           f'{Optimizer.__name__}_args_{optimizer_args}_bs_{batch_size}'
-    #     load_or_run_n(3, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
-    #                   init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization)
+    dir_name = f'n_runs_{dataset}_{model}_baselines_5_and_betas'
+    initialization = 'uniform'
+    for l in range(20, 2, -1):
+        optimizer_args = tuple(orig_optimizer_args)
+        importance_optimizer_args = tuple(orig_importance_optimizer_args)
+        model_args = orig_model_args + [0.0, False, True, True]
+        model_args[2] = l
+        model_args = tuple(model_args)
+        key = f'{Model.__name__}_args_{model_args}_baseline_' \
+              f'{Optimizer.__name__}_args_{optimizer_args}_bs_{batch_size}'
+        load_or_run_n(3, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
+                      init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization)
 
     # most basic method
-    # initialization = 'uniform'
-    # beta = 0.0
-    # normalization = False
-    # cosines = False
-    # optimizer_args = tuple(orig_optimizer_args)
-    # importance_optimizer_args = tuple(orig_importance_optimizer_args)
-    # for beta in [0.0, 0.001, 0.01, 0.1]:
-    #     model_args = tuple(orig_model_args + [beta, normalization])
-    #     key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
-    #           f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
-    #     load_or_run_n(5, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
-    #                   init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
-    #                   cosines)
+    initialization = 'uniform'
+    normalization = False
+    cosines = False
+    optimizer_args = tuple(orig_optimizer_args)
+    importance_optimizer_args = tuple(orig_importance_optimizer_args)
+    for beta in [0.0, 0.001, 0.01, 0.1]:
+        model_args = tuple(orig_model_args + [beta, normalization])
+        key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
+              f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
+        load_or_run_n(5, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
+                      init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
+                      cosines)
     # ===============
 
     # ===============
@@ -586,29 +567,29 @@ def main():
 
     # ===============
     # resnet betas and baseline
-    dir_name = f'n_runs_{dataset}_{model}_ver_2'
-    normalization = False
-    initialization = 'uniform'
-    cosines = False
+    # dir_name = f'n_runs_{dataset}_{model}_ver_2'
+    # normalization = False
+    # initialization = 'uniform'
+    # cosines = False
     # our method, with betas
-    for beta in [4e-3, 8e-3, 0.0, 2e-3, 1e-2]:
-        optimizer_args = tuple(orig_optimizer_args)
-        importance_optimizer_args = tuple(orig_importance_optimizer_args)
-        model_args = tuple(orig_model_args + [beta, normalization])
-        key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
-              f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
-        load_or_run_n(1, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
-                      init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
-                      cosines)
+    # for beta in [4e-3, 8e-3, 0.0, 2e-3, 1e-2]:
+    #     optimizer_args = tuple(orig_optimizer_args)
+    #     importance_optimizer_args = tuple(orig_importance_optimizer_args)
+    #     model_args = tuple(orig_model_args + [beta, normalization])
+    #     key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
+    #           f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
+    #     load_or_run_n(1, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
+    #                   init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
+    #                   cosines)
     # original baseline
-    optimizer_args = tuple(orig_optimizer_args)
-    importance_optimizer_args = tuple(orig_importance_optimizer_args)
-    model_args = tuple(orig_model_args + [0.0, normalization, True])
-    key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
-          f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
-    load_or_run_n(2, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
-                  init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
-                  cosines)
+    # optimizer_args = tuple(orig_optimizer_args)
+    # importance_optimizer_args = tuple(orig_importance_optimizer_args)
+    # model_args = tuple(orig_model_args + [0.0, normalization, True])
+    # key = f'{Model.__name__}_args_{model_args}_init_{initialization}_' \
+    #       f'{Optimizer.__name__}_args_{optimizer_args}_importance_{importance_optimizer_args}_bs_{batch_size}'
+    # load_or_run_n(2, dir_name, key, train_classifier, train_data, test_data, batch_size, xs, Model, model_args,
+    #               init_weights, Criterion, Optimizer, optimizer_args, importance_optimizer_args, initialization,
+    #               cosines)
     # baseline every layer
     # TODO
     # ===============
